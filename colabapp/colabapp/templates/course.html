@@ -9,7 +9,18 @@
                     <h2 class="text-white mt-0">{{ course.name }}</h2>
                     <hr class="divider divider-light" />
                     <p class="text-white-75 mb-4">{{ course.description }}</p>
-                    <a class="btn btn-light btn-xl" href="/academy/course/{{ course.id }}/subscribe">Inscribete Ahora!</a>
+                    <a class="btn btn-light btn-xl" href="/academy/course/{{ course.id }}/subscribe">Subscribete</a>
+                    {% for menssage in messages %}
+                        {% if message.tags == "success" %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">{{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+
+                        {% if message.tags == "error" %}
+                            <div class="alert alert-danger">{{ menssage }}</div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
