@@ -27,12 +27,14 @@ def v_subscribe(request, course_id):
 
     verificar = Subscription.objects.filter(subject_id = subject.id, student_id = request.user.id)
     if verificar.exists():
+        messages.error(request, "Ya estás suscrito a este curso.")
         return HttpResponseRedirect("/academy/course/%s" % (course_id))
     else:
         subs = Subscription()
         subs.student_id = request.user.id
         subs.subject_id = subject.id
         subs.save()
+        messages.success(request, "Te has suscrito exitosamente al curso.")
         return HttpResponseRedirect("/academy/course/%s" % (course_id))
 
 
