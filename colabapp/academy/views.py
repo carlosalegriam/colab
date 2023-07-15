@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
-from .models import Course, Subscription, Subject
+from .models import Course, Subscription, Subject, Student
 from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
@@ -16,6 +16,16 @@ def v_course(request, course_id):
     context = {
         'course': Course.objects.get(id = course_id)
     }
+    subject = Subject.objects.filter(course_id=course_id).last()
+    if subject is None:
+        return HttpResponseRedirect("/") #Redirigir al inicio, Home
+    
+    context['subs'] = subject
+
+    if request.user.is_authenticated:
+       if Student.objects.filter(id = request.user.id).exists(): #True si existe
+            verificar = Subscription.objects.filter(subject_id = subject.id, student_id = request.user.id).exists()
+            context['subscribed'] = verificar
     return render(request, 'course.html', context)
 
 @login_required(login_url="/admin/login")
