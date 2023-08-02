@@ -1,7 +1,7 @@
 {
   "builds": [
     {
-      "src": "colabapp/wsgi.py",
+      "src": "colab/colabapp/colabapp/wsgi.py",
       "use": "@vercel/python"
     },
     {
@@ -14,12 +14,12 @@
   ], 
   "routes": [
     {
-      "src": "colabapp/static/(.*)",
+      "src": "colab/colabapp/colabapp/static/(.*)",
       "dest": "colabapp/static/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "colabapp/wsgi.py"
+      "dest": "colab/colabapp/colabapp/wsgi.py"
     }
   ],
   "outputDirectory": "staticfiles"
